@@ -1,17 +1,31 @@
 import React from 'react'
+import personservice from './services/personservice'
 
-const Persons = ({ persons, searchTerm }) => {
+const Persons = ({ persons, searchTerm, setPersons }) => {
 
     const Person = ({ data }) => {
-        const { name, number } = data
+        const { name, number, id } = data
         return (
-            <ul>{name} {number}</ul>
+            <ul key={id}>{name} {number}</ul>
         )
+    }
+
+    const removePerson = (id) => {
+        if (window.confirm("Are you sure you want to delete?")) {
+            personservice
+                .remove(id)
+                .then(res => {
+                    setPersons(persons.filter(p => p.id !== id))
+                })
+        }
     }
 
     return (
         <div>
-            {persons.filter((val) => val.name.toLowerCase().includes(searchTerm.toLowerCase())).map((data, id) => <Person key={id} data={data} />)}
+            {persons.filter((val) => val.name.toLowerCase().includes(searchTerm.toLowerCase()))
+                .map((data) => <span key={data.id}><Person data={data} />
+                    <button onClick={() => removePerson(data.id)}>delete</button>
+                </span>)}
         </div>
     )
 }
