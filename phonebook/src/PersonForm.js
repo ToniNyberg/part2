@@ -46,17 +46,14 @@ const PersonForm = ({ newName, newNumber, setNewName, setNewNumber, persons, set
                     setErrorMessage(
                         `'${newName}' was already deleted from the phonebook`
                     )
-
                     setTimeout(() => {
                         setErrorMessage(null)
                     }, 5000)
                 })
-
             setNewName('')
             setNewNumber("")
         }
     }
-
 
     const handleNameChange = (event) => {
         setNewName(event.target.value)
