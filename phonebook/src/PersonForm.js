@@ -27,31 +27,43 @@ const PersonForm = ({ newName, newNumber, setNewName, setNewNumber, persons, set
                     setNewName('')
                     setNewNumber("")
                 })
-        } else {
-            const { id } = existingPerson
-            window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)
-            personservice
-                .update(id, { ...existingPerson, name: newName, number: newNumber })
-                .then(res => {
-                    setPersons(persons.map(person => person.id !== id ? person : res.data))
-                    setAlertMessage(
-                        `'${newName}'s number was succesfully updated`
-                    )
-                    setTimeout(() => {
-                        setAlertMessage(null)
-                    }, 5000)
-                })
                 .catch(error => {
-                    setPersons(persons.filter(person => person.id !== id))
-                    setErrorMessage(
-                        `'${newName}' was already deleted from the phonebook`
-                    )
+                    setErrorMessage(JSON.stringify(error.response.data))
                     setTimeout(() => {
                         setErrorMessage(null)
                     }, 5000)
                 })
-            setNewName('')
-            setNewNumber("")
+
+        } else {
+            const { id } = existingPerson
+            const answer = window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)
+            if (answer) {
+                personservice
+                    .update(id, { ...existingPerson, name: newName, number: newNumber })
+                    .then(res => {
+                        console.log("huhui")
+                        setPersons(persons.map(person => person.id !== id ? person : res.data))
+                        setAlertMessage(
+                            `'${newName}'s number was succesfully updated`
+                        )
+                        setTimeout(() => {
+                            setAlertMessage(null)
+                        }, 5000)
+                    })
+                    .catch(error => {
+                        console.log("fail")
+                        setErrorMessage(
+                            `information of '${newName}' has already been removed from server`
+                        )
+                        // setPersons(persons.filter(person => person.id !== id))
+                        setTimeout(() => {
+                            setErrorMessage(null)
+                        }, 5000)
+                    })
+                setNewName('')
+                setNewNumber("")
+
+            }
         }
     }
 
