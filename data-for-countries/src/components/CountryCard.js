@@ -6,7 +6,7 @@ const CountryCard = ({ data }) => {
     const { ccn3, name, population, capital, flags, languages } = data
     const { common } = name
     const { png } = flags
-
+    console.log('test')
     const apiKey = process.env.REACT_APP_API_KEY;
     const apiUrl = `http://api.weatherstack.com/current?access_key=${apiKey}&query=${capital}`
 
