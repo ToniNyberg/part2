@@ -53,7 +53,7 @@ const PersonForm = ({ newName, newNumber, setNewName, setNewNumber, persons, set
                         setErrorMessage(
                             `Information of '${newName}' has already been removed from server`
                         )
-                        // setPersons(persons.filter(person => person.id !== id))
+                        setPersons(persons.filter(person => person.id !== id))
                         setTimeout(() => {
                             setErrorMessage(null)
                         }, 5000)
