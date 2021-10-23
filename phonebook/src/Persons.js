@@ -25,9 +25,9 @@ const Persons = ({ persons, searchTerm, setPersons }) => {
 
     return (
         <div>
-            {persons.filter((val) => val.name.toLowerCase().includes(searchTerm.toLowerCase()))
-                .map((data) => <span key={data.id}><Person data={data} />
-                    <button onClick={() => removePerson(data.id)}>delete</button>
+            {persons.filter((val) => val?.name?.toLowerCase().includes(searchTerm.toLowerCase()))
+                .map((data) => <span key={data?.id}><Person data={data} />
+                    <button onClick={() => removePerson(data?.id)}>delete</button>
                 </span>)}
         </div>
     )
