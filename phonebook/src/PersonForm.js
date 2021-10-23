@@ -41,7 +41,6 @@ const PersonForm = ({ newName, newNumber, setNewName, setNewNumber, persons, set
                 personservice
                     .update(id, { ...existingPerson, name: newName, number: newNumber })
                     .then(res => {
-                        console.log("huhui")
                         setPersons(persons.map(person => person.id !== id ? person : res.data))
                         setAlertMessage(
                             `'${newName}'s number was succesfully updated`
@@ -51,9 +50,8 @@ const PersonForm = ({ newName, newNumber, setNewName, setNewNumber, persons, set
                         }, 5000)
                     })
                     .catch(error => {
-                        console.log("fail")
                         setErrorMessage(
-                            `information of '${newName}' has already been removed from server`
+                            `Information of '${newName}' has already been removed from server`
                         )
                         // setPersons(persons.filter(person => person.id !== id))
                         setTimeout(() => {
