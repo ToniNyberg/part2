@@ -17,9 +17,9 @@ const Persons = ({ persons, searchTerm, setPersons }) => {
                 .then(res => {
                     setPersons(persons.filter(p => p.id !== id))
                 })
-            // .catch(error => {
-            //     console.log(error.response.data)
-            // })
+                .catch(error => {
+                    console.log(error.response.data)
+                })
         }
     }
 
